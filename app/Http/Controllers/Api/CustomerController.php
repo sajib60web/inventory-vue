@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Supplier;
+use App\Models\Customer;
 use Intervention\Image\Facades\Image as Image;
 
-class SupplierController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
-        return response()->json($suppliers);
+        $customers = Customer::all();
+        return response()->json($customers);
     }
 
     /**
@@ -30,7 +30,6 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|max:191',
-            'email' => 'required|max:191',
             'phone_number' => 'required|max:191',
             'address' => 'required|max:191'
         ]);
@@ -42,12 +41,12 @@ class SupplierController extends Controller
             $ext = explode('/', $sub)[1];
             $name = time() . "." . $ext;
             $img = Image::make($request->photo)->resize(240, 200);
-            $upload_path = 'assets/suppliers/';
+            $upload_path = 'assets/customers/';
             $image_url = $upload_path . $name;
             $img->save($image_url);
             $input['photo'] = $image_url;
         }
-        Supplier::create($input);
+        Customer::create($input);
         return response('inserted');
     }
 
@@ -59,19 +58,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $supplier = Supplier::findOrFail($id);
-        return response()->json($supplier);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $customer = Customer::findOrFail($id);
+        return response()->json($customer);
     }
 
     /**
@@ -87,26 +75,26 @@ class SupplierController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|max:191',
             'phone_number' => 'required|max:191',
-            'address' => 'required|max:191'
+            'address' => 'required|max:20'
         ]);
 
         $input = $request->all();
-        $supplier = Supplier::findOrFail($id);
+        $customer = Customer::findOrFail($id);
         if ($request->new_photo) {
-            if (file_exists($supplier->photo)) {
-                unlink($supplier->photo);
+            if (file_exists($customer->photo)) {
+                unlink($customer->photo);
             }
             $position = strpos($request->new_photo, ';');
             $sub = substr($request->new_photo, 0, $position);
             $ext = explode('/', $sub)[1];
             $name = time() . "." . $ext;
             $img = Image::make($request->new_photo)->resize(240, 200);
-            $upload_path = 'assets/suppliers/';
+            $upload_path = 'assets/customers/';
             $image_url = $upload_path . $name;
             $img->save($image_url);
             $input['photo'] = $image_url;
         }
-        $supplier->update($input);
+        $customer->update($input);
         return response('updated');
     }
 
@@ -118,11 +106,11 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        $supplier = Supplier::findOrFail($id);
-        if (file_exists($supplier->photo)) {
-            unlink($supplier->photo);
+        $customer = Customer::findOrFail($id);
+        if (file_exists($customer->photo)) {
+            unlink($customer->photo);
         }
-        $supplier->delete();
+        $customer->delete();
         return response('deleted');
     }
 }

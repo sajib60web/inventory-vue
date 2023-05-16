@@ -2,126 +2,172 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-// Components
-const Login = require("../components/auth/Login.vue").default;
-
 const routes = [
     {
         path: "/",
         name: "login",
-        component: Login,
+        component: require("../components/auth/Login.vue").default,
     },
     {
         path: "/logout",
         name: "logout",
-        component: () => import("../components/auth/Logout.vue"),
+        component: require("../components/auth/Logout.vue").default,
     },
     {
         path: "/resister",
         name: "resister",
-        component: () => import("../components/auth/Resister.vue"),
+        component: require("../components/auth/Resister.vue").default,
     },
     {
         path: "/forgot-password",
         name: "forgot_password",
-        component: () => import("../components/auth/Forgot.vue"),
+        component: require("../components/auth/Forgot.vue").default,
     },
 
     // Admin
     {
         path: "/dashboard",
         name: "dashboard",
-        component: () => import("../components/Dashboard.vue"),
+        component: require("../components/Dashboard.vue").default,
     },
 
     // Employee
     {
         path: "/employees",
         name: "employees",
-        component: () => import("../components/employee/Index.vue"),
+        component: require("../components/employee/Index.vue").default,
     },
     {
         path: "/employees/create",
         name: "employees_create",
-        component: () => import("../components/employee/Create.vue"),
+        component: require("../components/employee/Create.vue").default,
     },
     {
         path: "/employees/edit/:id",
         name: "employees_edit",
-        component: () => import("../components/employee/Edit.vue"),
+        component: require("../components/employee/Edit.vue").default,
     },
 
     // Supplier
     {
         path: "/suppliers",
         name: "suppliers",
-        component: () => import("../components/supplier/Index.vue"),
+        component: require("../components/supplier/Index.vue").default,
     },
     {
         path: "/suppliers/create",
         name: "suppliers_create",
-        component: () => import("../components/supplier/Create.vue"),
+        component: require("../components/supplier/Create.vue").default,
     },
     {
         path: "/suppliers/edit/:id",
         name: "suppliers_edit",
-        component: () => import("../components/supplier/Edit.vue"),
+        component: require("../components/supplier/Edit.vue").default,
+    },
+
+    // Customer
+    {
+        path: "/customers",
+        name: "customers",
+        component: require("../components/customer/Index.vue").default,
+    },
+    {
+        path: "/customers/create",
+        name: "customers_create",
+        component: require("../components/customer/Create.vue").default,
+    },
+    {
+        path: "/customers/edit/:id",
+        name: "customers_edit",
+        component: require("../components/customer/Edit.vue").default,
     },
 
     // Category
     {
         path: "/categories",
         name: "categories",
-        component: () => import("../components/category/Index.vue"),
+        component: require("../components/category/Index.vue").default,
     },
     {
         path: "/categories/create",
         name: "categories_create",
-        component: () => import("../components/category/Create.vue"),
+        component: require("../components/category/Create.vue").default,
     },
     {
         path: "/categories/edit/:id",
         name: "categories_edit",
-        component: () => import("../components/category/Edit.vue"),
+        component: require("../components/category/Edit.vue").default,
     },
 
     // Product
     {
         path: "/products",
         name: "products",
-        component: () => import("../components/product/Index.vue"),
+        component: require("../components/product/Index.vue").default,
     },
     {
         path: "/products/create",
         name: "products_create",
-        component: () => import("../components/product/Create.vue"),
+        component: require("../components/product/Create.vue").default,
     },
     {
         path: "/products/edit/:id",
         name: "products_edit",
-        component: () => import("../components/product/Edit.vue"),
+        component: require("../components/product/Edit.vue").default,
     },
 
     // Expense
     {
         path: "/expenses",
         name: "expenses",
-        component: () => import("../components/expense/Index.vue"),
+        component: require("../components/expense/Index.vue").default,
     },
     {
         path: "/today/expenses",
         name: "today_expenses",
-        component: () => import("../components/expense/Today_expense.vue"),
+        component: require("../components/expense/Today_expense.vue").default,
     },
     {
         path: "/expenses/create",
         name: "expenses_create",
-        component: () => import("../components/expense/Create.vue"),
+        component: require("../components/expense/Create.vue").default,
     },
     {
         path: "/expenses/edit/:id",
         name: "expenses_edit",
-        component: () => import("../components/expense/Edit.vue"),
+        component: require("../components/expense/Edit.vue").default,
+    },
+
+    // Salary
+    {
+        path: "/salaries",
+        name: "salaries",
+        component: require("../components/salary/Index.vue").default,
+    },
+    {
+        path: "/salaries/create",
+        name: "salaries_create",
+        component: require("../components/salary/Create.vue").default,
+    },
+    {
+        path: "/salaries/edit/:id",
+        name: "salaries_edit",
+        component: require("../components/salary/Edit.vue").default,
+    },
+    {
+        path: "/view/salary/:id",
+        name: "view_salary",
+        component: require("../components/salary/View.vue").default,
+    },
+    {
+        path: "/stocks",
+        name: "stocks",
+        component: require("../components/stock/Index.vue").default,
+    },
+    {
+        path: "/edit/stock/:id",
+        name: "edit_stock",
+        component: require("../components/stock/EditStock.vue").default,
     },
 ];
 

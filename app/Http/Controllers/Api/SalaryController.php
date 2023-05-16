@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Expense;
+use App\Models\Salary;
 
-class ExpenseController extends Controller
+class SalaryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +15,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
-        return response()->json($expenses);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function todayExpenses()
-    {
-        $expenses = Expense::where('expense_date', date('Y-m-d'))->get();
-        return response()->json($expenses);
+        $salaries = Salary::with('employee')->get();
+        return response()->json($salaries);
     }
 
     /**
@@ -39,13 +28,15 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:191',
+            'employee_id' => 'required',
             'amount' => 'required|max:8',
-            'expense_date' => 'required'
+            'salary_month' => 'required|max:191',
         ]);
 
         $input = $request->all();
-        Expense::create($input);
+        $input['salary_date'] = date('Y-m-d');
+        $input['salary_year'] = date('Y');
+        Salary::create($input);
         return response('inserted');
     }
 
@@ -57,8 +48,8 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        $expense = Expense::findOrFail($id);
-        return response()->json($expense);
+        $salary = Salary::with('employee')->findOrFail($id);
+        return response()->json($salary);
     }
 
     /**
@@ -71,14 +62,14 @@ class ExpenseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:191',
+            'employee_id' => 'required',
             'amount' => 'required|max:8',
-            'expense_date' => 'required'
+            'salary_month' => 'required|max:191',
         ]);
 
         $input = $request->all();
-        $expense = Expense::findOrFail($id);
-        $expense->update($input);
+        $salary = Salary::findOrFail($id);
+        $salary->update($input);
         return response('updated');
     }
 
@@ -90,7 +81,7 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        Expense::findOrFail($id)->delete();
+        Salary::findOrFail($id)->delete();
         return response('deleted');
     }
 }

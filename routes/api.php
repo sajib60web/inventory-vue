@@ -30,8 +30,13 @@ Route::group([
     Route::post('register', 'Api\AuthController@register');
     Route::apiResource('employees', 'Api\EmployeeController');
     Route::apiResource('suppliers', 'Api\SupplierController');
+    Route::apiResource('customers', 'Api\CustomerController');
     Route::apiResource('categories', 'Api\CategoryController');
     Route::apiResource('products', 'Api\ProductController');
+    Route::apiResource('expenses', 'Api\ExpenseController');
+    Route::get('today/expenses', 'Api\ExpenseController@todayExpenses');
+    Route::apiResource('salaries', 'Api\SalaryController');
+    Route::post('stock/update/{id}', 'Api\StockController@stockUpdate');
 });
 
 Route::any('{any}', function () {

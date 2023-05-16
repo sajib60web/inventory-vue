@@ -18,6 +18,12 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+    <style>
+        .bg-red {
+            background: red;
+            color: #fff !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,6 +86,11 @@
                                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                     </router-link>
                                 </li>
+                                <li>
+                                    <router-link to="/pos" class="bg-red">
+                                        <i class="fa fa-dashboard"></i> <span>POS</span>
+                                    </router-link>
+                                </li>
                                 <li class="submenu">
                                     <a href="#">
                                         <i class="fa fa-user"></i>
@@ -114,6 +125,25 @@
                                         <li>
                                             <router-link to="/suppliers">
                                                 Supplier List
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span>Customer</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <router-link to="/customers/create">
+                                                Add Customer
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/customers">
+                                                Customer List
                                             </router-link>
                                         </li>
                                     </ul>
@@ -179,6 +209,30 @@
                                             </router-link>
                                         </li>
                                     </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span>Salary</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <router-link to="/salaries/create">
+                                                Add Salary
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/salaries">
+                                                Salary List
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <router-link to="/stocks">
+                                        <i class="fa fa-dashboard"></i> <span>Stock</span>
+                                    </router-link>
                                 </li>
                             </ul>
                         </div>

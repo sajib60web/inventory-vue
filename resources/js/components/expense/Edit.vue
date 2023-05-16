@@ -2,42 +2,75 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-12">
-                <h4 class="page-title">Edit Employee</h4>
+                <h4 class="page-title">Edit Expense</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-box">
                     <div class="card-block">
-                        <h6 class="card-title text-bold">Edit Employee</h6>
+                        <h6 class="card-title text-bold">Edit Expense</h6>
                         <hr />
                     </div>
-                    <form @submit.prevent="employeeUpdate">
+                    <form @submit.prevent="expenseUpdate">
                         <div class="row justify-content-center">
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label>Category Name</label>
+                                    <label>Name</label>
                                     <input
                                         type="text"
-                                        v-model="formData.category_name"
+                                        v-model="formData.name"
                                         class="form-control"
-                                        placeholder="Category Name"
+                                        placeholder="Name"
                                     />
                                     <small
                                         class="text-danger"
-                                        v-if="errors.category_name"
+                                        v-if="errors.name"
                                     >
-                                        {{ errors.category_name[0] }}
+                                        {{ errors.name[0] }}
                                     </small>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea
-                                        v-model="formData.description"
+                                    <label>Amount</label>
+                                    <input
+                                        type="number"
+                                        v-model="formData.amount"
                                         class="form-control"
-                                        placeholder="Description"
+                                        placeholder="Amount"
+                                    />
+                                    <small
+                                        class="text-danger"
+                                        v-if="errors.amount"
+                                    >
+                                        {{ errors.amount[0] }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Expense Date</label>
+                                    <input
+                                        type="date"
+                                        v-model="formData.expense_date"
+                                        class="form-control"
+                                    />
+                                    <small
+                                        class="text-danger"
+                                        v-if="errors.expense_date"
+                                    >
+                                        {{ errors.expense_date[0] }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Details</label>
+                                    <textarea
+                                        v-model="formData.details"
+                                        class="form-control"
+                                        placeholder="Details"
                                     >
                                     </textarea>
                                 </div>
@@ -64,8 +97,10 @@ export default {
     data() {
         return {
             formData: {
-                category_name: "",
-                description: "",
+                name: "",
+                amount: "",
+                expense_date: "",
+                details: "",
             },
             errors: {},
         };
@@ -76,7 +111,7 @@ export default {
         }
         let id = this.$route.params.id;
         axios
-            .get("/api/auth/categories/" + id)
+            .get("/api/auth/expenses/" + id)
             .then((response) => {
                 this.formData = response.data;
             })
@@ -85,16 +120,16 @@ export default {
             });
     },
     methods: {
-        employeeUpdate() {
+        expenseUpdate() {
             let id = this.$route.params.id;
             axios
-                .patch("/api/auth/categories/" + id, this.formData)
+                .patch("/api/auth/expenses/" + id, this.formData)
                 .then((response) => {
                     Toast.fire({
                         icon: "success",
-                        title: "Category updated successfully",
+                        title: "Expense updated successfully",
                     });
-                    this.$router.push("/categories");
+                    this.$router.push("/expenses");
                 })
                 .catch((error) => {
                     if (error.response.data.errors) {

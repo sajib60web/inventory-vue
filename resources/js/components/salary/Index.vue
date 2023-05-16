@@ -2,16 +2,16 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-12">
-                <h4 class="page-title">Expense</h4>
+                <h4 class="page-title">Salary</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-box">
                     <div class="card-block">
-                        <h6 class="card-title text-bold">All Expense</h6>
+                        <h6 class="card-title text-bold">All Salary</h6>
                         <router-link
-                            to="/expenses/create"
+                            to="/salaries/create"
                             style="float: right; margin-top: -40px"
                             class="btn btn-success btn-sm"
                         >
@@ -33,37 +33,50 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Name</th>
+                                        <th>Employee</th>
+                                        <th>Salary Date</th>
+                                        <th>Salary Month</th>
+                                        <th>Salary Year</th>
                                         <th>Amount</th>
-                                        <th>Expense Date</th>
-                                        <th>Details</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="(expense, index) in filterSearch"
-                                        :key="expense.id"
+                                        v-for="(salary, index) in filterSearch"
+                                        :key="salary.id"
                                     >
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ expense.name }}</td>
-                                        <td>{{ expense.amount }}</td>
-                                        <td>{{ expense.expense_date }}</td>
-                                        <td>{{ expense.details }}</td>
+                                        <td>
+                                            <span v-if="salary.employee.name">
+                                                {{ salary.employee.name }}
+                                            </span>
+                                        </td>
+                                        <td>{{ salary.salary_date }}</td>
+                                        <td>{{ salary.salary_month }}</td>
+                                        <td>{{ salary.salary_year }}</td>
+                                        <td>{{ salary.amount }}</td>
                                         <td>
                                             <router-link
                                                 :to="{
-                                                    name: 'expenses_edit',
-                                                    params: { id: expense.id },
+                                                    name: 'view_salary',
+                                                    params: { id: salary.id },
+                                                }"
+                                                class="btn btn-info btn-sm"
+                                            >
+                                                <i class="fa fa-eye"></i>
+                                            </router-link>
+                                            <router-link
+                                                :to="{
+                                                    name: 'salaries_edit',
+                                                    params: { id: salary.id },
                                                 }"
                                                 class="btn btn-success btn-sm"
                                             >
                                                 <i class="fa fa-edit"></i>
                                             </router-link>
                                             <button
-                                                @click="
-                                                    deleteExpense(expense.id)
-                                                "
+                                                @click="deleteSalary(salary.id)"
                                                 class="btn btn-danger btn-sm"
                                             >
                                                 <i class="fa fa-trash"></i>
@@ -83,7 +96,7 @@
 export default {
     data() {
         return {
-            expenses: [],
+            salaries: [],
             searchTerm: "",
         };
     },
@@ -91,23 +104,25 @@ export default {
         if (!User.isLoggedIn()) {
             this.$router.push("/");
         }
-        this.allExpense();
+        this.allSalary();
     },
     computed: {
         filterSearch() {
-            return this.expenses.filter((expense) => {
-                return expense.name.match(this.searchTerm);
+            return this.salaries.filter((salary) => {
+                return salary.salary_date.match(this.searchTerm);
             });
         },
     },
     methods: {
-        allExpense() {
+        allSalary() {
             axios
-                .get("/api/auth/expenses")
-                .then(({ data }) => (this.expenses = data))
+                .get("/api/auth/salaries")
+                .then(({ data }) => {
+                    this.salaries = data;
+                })
                 .catch();
         },
-        deleteExpense(id) {
+        deleteSalary(id) {
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -119,14 +134,14 @@ export default {
             }).then((result) => {
                 if (result.value) {
                     axios
-                        .delete("/api/auth/expenses/" + id)
+                        .delete("/api/auth/salaries/" + id)
                         .then(() => {
-                            this.expenses = this.expenses.filter((expense) => {
-                                return expense.id != id;
+                            this.salaries = this.salaries.filter((salary) => {
+                                return salary.id != id;
                             });
                         })
                         .catch(() => {
-                            this.$router.push({ name: "expenses" });
+                            this.$router.push({ name: "salaries" });
                         });
                     Swal.fire(
                         "Deleted!",
@@ -139,9 +154,3 @@ export default {
     },
 };
 </script>
-<style>
-#em_photo {
-    height: 60px;
-    width: 60px;
-}
-</style>
