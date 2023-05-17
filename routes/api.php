@@ -37,6 +37,30 @@ Route::group([
     Route::get('today/expenses', 'Api\ExpenseController@todayExpenses');
     Route::apiResource('salaries', 'Api\SalaryController');
     Route::post('stock/update/{id}', 'Api\StockController@stockUpdate');
+    // Add to cart Route
+    Route::Get('/addToCart/{id}', 'Api\CartController@addToCart');
+    Route::Get('/cart/product', 'Api\CartController@cartProduct');
+    Route::Get('/remove/cart/{id}', 'Api\CartController@removeCart');
+    Route::Get('/increment/{id}', 'Api\CartController@increment');
+    Route::Get('/decrement/{id}', 'Api\CartController@decrement');
+    // Vat Route
+    Route::Get('/vats', 'Api\CartController@Vats');
+    // Pos Route
+    Route::get('getting/product/{id}', 'Api\PosController@gettingProduct');
+    Route::Post('/order_now', 'Api\PosController@orderNow');
+    // Order Route
+    Route::Get('/orders', 'Api\OrderController@order');
+    Route::Get('/today/orders', 'Api\OrderController@todayOrder');
+    Route::Get('/order/details/{id}', 'Api\OrderController@orderDetails');
+    Route::post('/search/order', 'Api\OrderController@searchOrder');
+
+    // Dashboard Route
+
+    Route::Get('/today/sell', 'Api\DashboardController@todaySell');
+    Route::Get('/today/income', 'Api\DashboardController@todayIncome');
+    Route::Get('/today/due', 'Api\DashboardController@todayDue');
+    Route::Get('/today/expense', 'Api\DashboardController@todayExpense');
+    Route::Get('/today/stock_out', 'Api\DashboardController@stock_out');
 });
 
 Route::any('{any}', function () {

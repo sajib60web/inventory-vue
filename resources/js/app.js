@@ -3,15 +3,15 @@ require("./bootstrap");
 window.Vue = require("vue");
 import router from "./router";
 
-// Import user class
+// Import User Class
 import User from "./helpers/User";
 window.User = User;
 
-// Import user class
+// Import Notification Class
 import Notification from "./helpers/Notifications";
 window.Notification = Notification;
 
-// Sweet alert start
+// Sweet Alert start
 import Swal from "sweetalert2";
 window.Swal = Swal;
 const Toast = Swal.mixin({
@@ -20,12 +20,16 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    didOpen: (toast) => {
+    onOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
         toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
 });
+
 window.Toast = Toast;
+// Sweet Alert End
+
+window.Reload = new Vue();
 
 const app = new Vue({
     el: "#app",

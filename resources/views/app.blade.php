@@ -234,6 +234,30 @@
                                         <i class="fa fa-dashboard"></i> <span>Stock</span>
                                     </router-link>
                                 </li>
+                                <li class="submenu">
+                                    <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span>Order</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <router-link to="/orders">
+                                                All Order
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/today/order">
+                                                Today Order
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/search/order">
+                                                Search Order
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>

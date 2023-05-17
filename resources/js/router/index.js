@@ -31,6 +31,13 @@ const routes = [
         component: require("../components/Dashboard.vue").default,
     },
 
+    // Point Of Sale
+    {
+        path: "/pos",
+        name: "pos",
+        component: require("../components/pos/PointOfSale.vue").default,
+    },
+
     // Employee
     {
         path: "/employees",
@@ -159,6 +166,8 @@ const routes = [
         name: "view_salary",
         component: require("../components/salary/View.vue").default,
     },
+
+    // stock Routes
     {
         path: "/stocks",
         name: "stocks",
@@ -168,6 +177,30 @@ const routes = [
         path: "/edit/stock/:id",
         name: "edit_stock",
         component: require("../components/stock/EditStock.vue").default,
+    },
+
+    // Order Routes
+    {
+        path: "/orders",
+        name: "orders",
+        component: require("../components/order/Order.vue").default,
+    },
+    {
+        path: "/view-order/:id",
+        name: "view-order",
+        component: require("../components/order/ViewOrder.vue").default,
+    },
+
+    {
+        path: "/today/order",
+        name: "today-order",
+        component: require("../components/order/TodayOrder.vue").default,
+    },
+
+    {
+        path: "/search/order",
+        name: "search-order",
+        component: require("../components/order/SearchOrder.vue").default,
     },
 ];
 
